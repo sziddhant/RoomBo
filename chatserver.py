@@ -6,6 +6,8 @@ import datetime
 import random
 import requests
 import os
+
+from wit_api import *
 ##############
 NumberOfConnections =5
 ###################
@@ -36,7 +38,11 @@ print("Listening for clients...")
 #chat bot code(basic)
 def chatbot(data):
     data1 = data.decode()
-    if data1 in database:
+    x=mesgapi(data1)
+    if x:
+        print (x)
+        bReply(x)
+    elif data1 in database:
         print(database[data])
         bReply(database[data])
     elif data1 in greetings:
@@ -61,6 +67,7 @@ def bReply(message):
             client.close()
 ###############################################
 #Server
+            
 def clientthread(conn,addressList):
     while True:
         output = conn.recv(2048)
